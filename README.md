@@ -8,7 +8,7 @@ https://dannymedinacoronel.github.io/marketplace-extensiones/
 
 ## Desarrollo local
 
-Abre `index.html` en un navegador. El catálogo y las novedades se cargan desde la API pública de GitHub.
+Abre `index.html` en un navegador. El catálogo incluye una colección local para estar disponible aunque GitHub limite las consultas. Usa el botón «Actualizar» para consultar los repositorios y las últimas versiones en GitHub.
 
 ## Publicación
 

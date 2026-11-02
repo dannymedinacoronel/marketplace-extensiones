@@ -1,6 +1,56 @@
 const GITHUB_USERNAME = "dannymedinacoronel";
 const MARKETPLACE_REPOSITORY = "marketplace-extensiones";
 const GITHUB_API = "https://api.github.com";
+const DEFAULT_REPOSITORIES = [
+  {
+    name: "DivisaGo-Extension",
+    description: "Conversor de divisas, criptomonedas y metales para Chrome.",
+    topics: ["chrome-extension", "currency"],
+    html_url: `https://github.com/${GITHUB_USERNAME}/DivisaGo-Extension`,
+    stargazers_count: null,
+    updated_at: "",
+    language: null,
+    fork: false,
+    archived: false,
+    private: false,
+  },
+  {
+    name: "Fraseo-Extension",
+    description: "Plantillas de texto y abreviaturas para escribir más rápido.",
+    topics: ["chrome-extension", "productivity"],
+    html_url: `https://github.com/${GITHUB_USERNAME}/Fraseo-Extension`,
+    stargazers_count: null,
+    updated_at: "",
+    language: null,
+    fork: false,
+    archived: false,
+    private: false,
+  },
+  {
+    name: "FullPagesaver-Extension",
+    description: "Guarda páginas web completas como HTML o PDF.",
+    topics: ["chrome-extension", "productivity"],
+    html_url: `https://github.com/${GITHUB_USERNAME}/FullPagesaver-Extension`,
+    stargazers_count: null,
+    updated_at: "",
+    language: null,
+    fork: false,
+    archived: false,
+    private: false,
+  },
+  {
+    name: "Pausa-Bloom",
+    description: "Organiza tus descansos y cultiva un jardín con cada pausa.",
+    topics: ["chrome-extension", "wellness"],
+    html_url: `https://github.com/${GITHUB_USERNAME}/Pausa-Bloom`,
+    stargazers_count: null,
+    updated_at: "",
+    language: null,
+    fork: false,
+    archived: false,
+    private: false,
+  },
+];
 const EXTENSION_PATTERN = /extension|chrome[- ]?addon|browser[- ]?addon|browser[- ]?extension|pausa[- ]?bloom/i;
 const CATEGORY_RULES = [
   { id: "finance", label: "Finanzas", pattern: /divisa|currency|finance|finanzas|crypto|cripto|exchange|conversor/i },
@@ -127,7 +177,12 @@ const elements = {
 
 let allExtensions = [];
 let currentFilter = "all";
-let profile = null;
+let profile = {
+  login: GITHUB_USERNAME,
+  name: "Danny Medina Coronel",
+  avatar_url: "https://avatars.githubusercontent.com/u/39246816?v=4",
+  html_url: `https://github.com/${GITHUB_USERNAME}`,
+};
 let releaseData = [];
 let carouselTimer;
 let heroTimer;
@@ -181,6 +236,9 @@ function makeCard(repo, index) {
   const image = PRODUCT_IMAGES[repo.name];
   const productName = PRODUCT_TITLES[repo.name]
     || repo.name.replace(/[-_]?extension/i, "").replace(/([a-z])([A-Z])/g, "$1 $2");
+  const starCount = Number.isFinite(repo.stargazers_count)
+    ? new Intl.NumberFormat("es-ES").format(repo.stargazers_count)
+    : "—";
   const storeUrl = STORE_LINKS[repo.name];
   const githubUrl = escapeHtml(repo.html_url);
   const screenshots = PRODUCT_DETAILS[repo.name]?.screenshots
@@ -207,7 +265,7 @@ function makeCard(repo, index) {
       <div class="product-info">
         <div class="product-title-line">
           <h3><a href="${githubUrl}" target="_blank" rel="noreferrer">${escapeHtml(productName)}</a></h3>
-          <span class="star-count"><span aria-hidden="true">★</span>${repo.stargazers_count}</span>
+          <span class="star-count"><span aria-hidden="true">★</span>${starCount}</span>
         </div>
         <p>${escapeHtml(description)}</p>
         <div class="card-footer">
@@ -241,9 +299,13 @@ function renderExtensions() {
     .filter((repo) => elements.installFilter.value === "all" || INSTALL_STEPS[repo.name] === elements.installFilter.value)
     .filter((repo) => !query || `${repositoryText(repo)} ${getTags(repo).join(" ")} ${PRODUCT_DETAILS[repo.name]?.features.join(" ") || ""}`.toLocaleLowerCase("es").includes(query));
 
-  if (sortBy === "stars") filtered.sort((a, b) => b.stargazers_count - a.stargazers_count || a.name.localeCompare(b.name));
+  if (sortBy === "stars") filtered.sort((a, b) => (b.stargazers_count ?? -1) - (a.stargazers_count ?? -1) || a.name.localeCompare(b.name));
   if (sortBy === "name") filtered.sort((a, b) => a.name.localeCompare(b.name, "es"));
-  if (sortBy === "updated") filtered.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+  if (sortBy === "updated") filtered.sort((a, b) => {
+    const updatedA = Date.parse(a.updated_at);
+    const updatedB = Date.parse(b.updated_at);
+    return Number.isNaN(updatedA) || Number.isNaN(updatedB) ? 0 : updatedB - updatedA;
+  });
 
   elements.grid.innerHTML = filtered.map(makeCard).join("");
   clearInterval(carouselTimer);
@@ -383,6 +445,9 @@ function openProductDetails(repoName) {
   const release = releaseData.find((item) => item.repo.name === repo.name)?.release;
   const installUrl = storeUrl || downloadUrl;
   const installLabel = storeUrl ? "Añadir desde Chrome Web Store" : "Descargar última versión";
+  const starCount = Number.isFinite(repo.stargazers_count)
+    ? new Intl.NumberFormat("es-ES").format(repo.stargazers_count)
+    : "—";
   const screenshotList = details?.screenshots || (PRODUCT_IMAGES[repo.name]
     ? [{ url: PRODUCT_IMAGES[repo.name], alt: `Captura de ${productName}` }]
     : []);
@@ -397,7 +462,7 @@ function openProductDetails(repoName) {
         <div class="detail-badges">
           ${release?.tag_name ? `<span>Versión ${escapeHtml(release.tag_name)}</span>` : ""}
           <span>${storeUrl ? "Chrome Web Store" : "Instalación manual"}</span>
-          <span>★ ${repo.stargazers_count}</span>
+          <span>★ ${starCount}</span>
         </div>
       </div>
     </div>
@@ -526,31 +591,72 @@ async function loadProfile() {
   if (data.blog) document.querySelector("#developer-socials a:nth-child(2)").href = website;
 }
 
-async function loadMarketplace() {
+async function loadMarketplace(refreshFromGitHub = false) {
   elements.error.hidden = true;
   elements.empty.hidden = true;
   elements.grid.hidden = false;
   elements.grid.setAttribute("aria-busy", "true");
-  elements.grid.innerHTML = '<div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>';
-  elements.results.textContent = "Cargando extensiones";
+  if (!allExtensions.length) {
+    elements.grid.innerHTML = '<div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>';
+    elements.results.textContent = "Cargando extensiones";
+  }
   elements.refresh.classList.add("is-loading");
 
   try {
-    const [repos] = await Promise.all([fetchAllRepos(), loadProfile()]);
-    allExtensions = repos
-      .filter((repo) => !repo.fork && !repo.archived && !repo.private)
-      .filter((repo) => repo.name.toLowerCase() !== MARKETPLACE_REPOSITORY)
-      .filter((repo) => EXTENSION_PATTERN.test(repositoryText(repo)))
-      .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+    if (!refreshFromGitHub) {
+      allExtensions = [...DEFAULT_REPOSITORIES];
+      renderHeroSlides(allExtensions);
+      renderExtensions();
+      renderReleases();
+      return;
+    }
+
+    const [reposResult, profileResult] = await Promise.allSettled([fetchAllRepos(), loadProfile()]);
+    const refreshErrors = [];
+    if (reposResult.status === "fulfilled") {
+      const repos = reposResult.value
+        .filter((repo) => !repo.fork && !repo.archived && !repo.private)
+        .filter((repo) => repo.name.toLowerCase() !== MARKETPLACE_REPOSITORY)
+        .filter((repo) => EXTENSION_PATTERN.test(repositoryText(repo)))
+        .sort((a, b) => {
+          const updatedA = Date.parse(a.updated_at);
+          const updatedB = Date.parse(b.updated_at);
+          return Number.isNaN(updatedA) || Number.isNaN(updatedB) ? 0 : updatedB - updatedA;
+        });
+      if (repos.length) {
+        allExtensions = repos;
+        void loadLatestReleases(allExtensions);
+      } else {
+        refreshErrors.push("GitHub no devolvió extensiones; se conserva el catálogo guardado.");
+      }
+    } else {
+      refreshErrors.push(reposResult.reason instanceof Error
+        ? reposResult.reason.message
+        : "No se pudieron consultar los repositorios de GitHub.");
+    }
+    if (profileResult.status === "rejected") {
+      refreshErrors.push("No se pudo actualizar la información del perfil.");
+      console.error("No se pudo actualizar el perfil de GitHub.", profileResult.reason);
+    }
+
     renderHeroSlides(allExtensions);
     renderExtensions();
-    void loadLatestReleases(allExtensions);
+    if (refreshErrors.length) {
+      elements.results.textContent += ` · ${refreshErrors.join(" ")}`;
+    }
   } catch (error) {
-    elements.grid.hidden = true;
-    elements.error.hidden = false;
-    elements.errorMessage.textContent = error instanceof Error ? error.message : "Ha ocurrido un error inesperado.";
-    elements.count.innerHTML = '<span class="count-number">—</span> extensiones';
-    elements.results.textContent = "No se pudieron cargar las extensiones";
+    console.error("No se pudo mostrar el catálogo de extensiones.", error);
+    if (allExtensions.length) {
+      renderHeroSlides(allExtensions);
+      renderExtensions();
+      elements.results.textContent += " · Se conserva la colección disponible.";
+    } else {
+      elements.grid.hidden = true;
+      elements.error.hidden = false;
+      elements.errorMessage.textContent = error instanceof Error ? error.message : "Ha ocurrido un error inesperado.";
+      elements.count.innerHTML = '<span class="count-number">—</span> extensiones';
+      elements.results.textContent = "No se pudieron cargar las extensiones";
+    }
   } finally {
     elements.grid.setAttribute("aria-busy", "false");
     elements.refresh.classList.remove("is-loading");
@@ -643,7 +749,7 @@ elements.clearSearch.addEventListener("click", () => {
   });
   renderExtensions();
 });
-elements.refresh.addEventListener("click", loadMarketplace);
-elements.retry.addEventListener("click", loadMarketplace);
+elements.refresh.addEventListener("click", () => loadMarketplace(true));
+elements.retry.addEventListener("click", () => loadMarketplace(true));
 
 loadMarketplace();
