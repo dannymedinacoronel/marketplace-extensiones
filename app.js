@@ -62,7 +62,7 @@ const PRODUCT_IMAGES = {
   "DivisaGo-Extension": "https://raw.githubusercontent.com/dannymedinacoronel/DivisaGo-Extension/b18e90ead874d717e74ab856cfa0b87a8e15e7cb/docs/capturas/captura-1-convertir-1280x800.png",
   "Fraseo-Extension": "https://raw.githubusercontent.com/dannymedinacoronel/Fraseo-Extension/3ce77cddfc5460c8f4beaa1c58a7950221bc1297/docs/capturas/panel-claro.png",
   "FullPagesaver-Extension": "https://raw.githubusercontent.com/dannymedinacoronel/FullPagesaver-Extension/b63df417d9318de9797d7ee7621c121ccef31a9d/docs/capturas/portada.png",
-  "Pausa-Bloom": "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/hero.svg",
+  "Pausa-Bloom": "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/hero.png",
 };
 const STORE_LINKS = {
   "DivisaGo-Extension": "https://chromewebstore.google.com/detail/divisago/jogebdgecfomainlnogekiafnflbbfak",
@@ -136,9 +136,13 @@ const PRODUCT_DETAILS = {
       "Activa el modo de desarrollador, pulsa «Cargar descomprimida» y selecciona la carpeta extraída.",
     ],
     screenshots: [
-      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/hoy.svg", alt: "Vista de hoy y progreso en Pausa Bloom" },
-      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/calendario.svg", alt: "Calendario de descansos en Pausa Bloom" },
-      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/ajustes.svg", alt: "Temas y ajustes de Pausa Bloom" },
+      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/hoy.png", alt: "Vista de hoy y progreso en Pausa Bloom" },
+      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/calendario.png", alt: "Calendario de descansos en Pausa Bloom" },
+      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/ajustes.png", alt: "Temas y ajustes de Pausa Bloom" },
+      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/descanso.png", alt: "Registro de descansos en Pausa Bloom" },
+      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/jardin.png", alt: "Jardín animado de Pausa Bloom" },
+      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/progreso.png", alt: "Estadísticas y rachas en Pausa Bloom" },
+      { url: "https://raw.githubusercontent.com/dannymedinacoronel/Pausa-Bloom/main/assets/oscuro.png", alt: "Tema oscuro de Pausa Bloom" },
     ],
   },
 };
