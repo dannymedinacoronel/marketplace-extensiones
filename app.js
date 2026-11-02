@@ -1,4 +1,5 @@
 const GITHUB_USERNAME = "dannymedinacoronel";
+const MARKETPLACE_REPOSITORY = "marketplace-extensiones";
 const GITHUB_API = "https://api.github.com";
 const EXTENSION_PATTERN = /extension|chrome[- ]?addon|browser[- ]?addon|browser[- ]?extension|pausa[- ]?bloom/i;
 const CATEGORY_RULES = [
@@ -537,6 +538,7 @@ async function loadMarketplace() {
     const [repos] = await Promise.all([fetchAllRepos(), loadProfile()]);
     allExtensions = repos
       .filter((repo) => !repo.fork && !repo.archived && !repo.private)
+      .filter((repo) => repo.name.toLowerCase() !== MARKETPLACE_REPOSITORY)
       .filter((repo) => EXTENSION_PATTERN.test(repositoryText(repo)))
       .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
     renderHeroSlides(allExtensions);
