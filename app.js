@@ -512,9 +512,10 @@ async function loadProfile() {
   document.querySelector("#hero-author-name").textContent = data.name || data.login;
   document.querySelector("#developer-avatar-link").href = data.html_url;
   document.querySelector("#developer-title").innerHTML = `Hola, soy ${escapeHtml((data.name || "Danny").split(" ")[0])}<span class="heading-period">.</span>`;
-  document.querySelector("#developer-bio").textContent = data.bio || "Desarrollador y creador de herramientas digitales. Me gusta convertir ideas útiles en experiencias sencillas.";
   document.querySelector("#developer-location").textContent = data.location || "Barcelona, España";
-  document.querySelector("#developer-followers").textContent = `${data.followers} seguidores`;
+  document.querySelector("#developer-followers").textContent = new Intl.NumberFormat("es-ES").format(data.followers);
+  document.querySelector("#developer-repositories").textContent = new Intl.NumberFormat("es-ES").format(data.public_repos);
+  document.querySelector("#developer-since").textContent = new Intl.DateTimeFormat("es-ES", { year: "numeric" }).format(new Date(data.created_at));
   const website = data.blog ? (data.blog.startsWith("http") ? data.blog : `https://${data.blog}`) : `https://github.com/${GITHUB_USERNAME}`;
   const websiteLabel = data.blog ? data.blog.replace(/^https?:\/\//, "").replace(/\/$/, "") : "GitHub";
   const websiteLink = document.querySelector("#developer-website");
