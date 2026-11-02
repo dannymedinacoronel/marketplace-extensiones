@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Descubre las extensiones para Chrome creadas por Danny Medina Coronel."
+    />
+    <meta name="theme-color" content="#101010" />
+    <title>Extensiones de Danny Medina — Small tools, big ideas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Inicio">
+        <img id="nav-avatar" class="nav-avatar" src="" alt="" />
+        <span>dm<span class="brand-light">/extensions</span></span>
+      </a>
+      <nav class="topnav" aria-label="Navegación principal">
+        <a class="topnav-link active" href="#catalogo">Extensiones</a>
+        <a class="topnav-link" href="#novedades">Novedades</a>
+        <a class="topnav-link" href="#desarrollador">Desarrollador</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a tema claro" title="Cambiar tema">
+          <span class="theme-icon" aria-hidden="true">☼</span>
+        </button>
+        <a
+          class="github-link"
+          href="https://github.com/dannymedinacoronel"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-slides" aria-hidden="true">
+          <img
+            class="hero-backdrop is-visible"
+            id="hero-image-a"
+            src="https://raw.githubusercontent.com/dannymedinacoronel/DivisaGo-Extension/b18e90ead874d717e74ab856cfa0b87a8e15e7cb/docs/capturas/captura-1-convertir-1280x800.png"
+            alt=""
+            fetchpriority="high"
+          />
+          <img class="hero-backdrop" id="hero-image-b" src="" alt="" />
+        </div>
+        <div class="hero-vignette" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-dot"></span> EXTENSIONES PARA CHROME</div>
+          <h1 id="hero-title">Tu navegador.<br /><span>En otra liga.</span></h1>
+          <p class="hero-description">
+            Descubre herramientas para ahorrar tiempo, organizarte y hacer más con cada clic.
+            Creadas por Danny Medina.
+          </p>
+          <a class="hero-cta" href="#catalogo">
+            Explorar extensiones <span aria-hidden="true">↓</span>
+          </a>
+          <div class="hero-note">
+            <img id="hero-avatar" class="hero-avatar" src="" alt="" />
+            <span>Desarrollado por <strong id="hero-author-name">Danny Medina Coronel</strong></span>
+          </div>
+        </div>
+
+        <div class="hero-feature">
+          <span class="feature-kicker" id="hero-slide-count">EN PORTADA</span>
+          <span class="feature-name" id="hero-product-name">Divisa&amp;Go</span>
+          <span class="feature-caption" id="hero-product-caption">Tu dinero, sin fronteras.</span>
+          <div class="hero-slide-controls" id="hero-slide-controls" role="group" aria-label="Elegir extensión destacada">
+            <button class="hero-slide-arrow" id="hero-slide-previous" type="button" aria-label="Extensión destacada anterior">‹</button>
+            <div class="hero-slide-dots" id="hero-slide-dots"></div>
+            <button class="hero-slide-arrow" id="hero-slide-next" type="button" aria-label="Extensión destacada siguiente">›</button>
+          </div>
+        </div>
+        <div class="hero-links">
+          <a class="hero-store-link" id="hero-install-link" href="https://chromewebstore.google.com/detail/divisago/jogebdgecfomainlnogekiafnflbbfak" target="_blank" rel="noreferrer">
+            Chrome Web Store <span aria-hidden="true">↗</span>
+          </a>
+          <a id="hero-github-link" href="https://github.com/dannymedinacoronel/DivisaGo-Extension" target="_blank" rel="noreferrer">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="hero-bottom">
+          <span>DESCUBRE LA COLECCIÓN <span class="hero-bottom-star">✳</span></span>
+          <a href="https://github.com/dannymedinacoronel" target="_blank" rel="noreferrer">Ver perfil del desarrollador ↗</a>
+        </div>
+      </section>
+
+      <section class="catalog section-wrap" id="catalogo" aria-labelledby="catalog-title">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow section-eyebrow">EXPLORA Y DESCUBRE</div>
+            <h2 id="catalog-title">Todas las extensiones<span class="heading-period">.</span></h2>
+          </div>
+          <div class="catalog-count" id="catalog-count" aria-live="polite">
+            <span class="count-number">—</span> extensiones
+          </div>
+        </div>
+
+        <div class="catalog-toolbar">
+          <div class="filters" role="group" aria-label="Filtrar por categoría">
+            <button class="filter-chip is-active" data-filter="all" type="button" aria-pressed="true">Todas</button>
+            <button class="filter-chip" data-filter="productivity" type="button" aria-pressed="false">Productividad</button>
+            <button class="filter-chip" data-filter="finance" type="button" aria-pressed="false">Finanzas</button>
+            <button class="filter-chip" data-filter="wellness" type="button" aria-pressed="false">Bienestar</button>
+            <button class="filter-chip" data-filter="utility" type="button" aria-pressed="false">Utilidades</button>
+          </div>
+          <div class="catalog-controls">
+            <label class="sort-box install-filter">
+              <span class="visually-hidden">Filtrar por método de instalación</span>
+              <select id="install-filter">
+                <option value="all">Todos los métodos</option>
+                <option value="store">Chrome Web Store</option>
+                <option value="download">Descarga manual</option>
+              </select>
+            </label>
+            <label class="search-box">
+              <span class="visually-hidden">Buscar extensiones</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.7" cy="8.7" r="5.7"></circle><path d="m13 13 4 4"></path></svg>
+              <input id="search-input" type="search" placeholder="Buscar extensión..." autocomplete="off" />
+            </label>
+            <label class="sort-box">
+              <span class="visually-hidden">Ordenar extensiones</span>
+              <select id="sort-select">
+                <option value="updated">Más recientes</option>
+                <option value="stars">Más populares</option>
+                <option value="name">Nombre A–Z</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="results-meta">
+          <span id="results-label">Cargando extensiones</span>
+          <button class="refresh-button" id="refresh-button" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 8A6.5 6.5 0 0 0 5 4.5L3.5 6M3.5 6V2.8M3.5 6h3.2M3.5 12a6.5 6.5 0 0 0 11.5 3.5l1.5-1.5m0 0v3.2m0-3.2h-3.2"></path></svg>
+            Actualizar
+          </button>
+        </div>
+
+        <div class="product-grid" id="product-grid" aria-live="polite" aria-busy="true">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+        <div class="empty-state" id="empty-state" hidden>
+          <span class="empty-icon">⌕</span>
+          <h3>No encontramos esa extensión</h3>
+          <p>Prueba con otra búsqueda o cambia el filtro.</p>
+          <button class="text-button" id="clear-search" type="button">Ver todas</button>
+        </div>
+        <div class="error-state" id="error-state" hidden>
+          <span class="error-icon">!</span>
+          <h3>No pudimos cargar las extensiones</h3>
+          <p id="error-message">Comprueba tu conexión e inténtalo de nuevo.</p>
+          <button class="hero-cta retry-button" id="retry-button" type="button">Intentar de nuevo</button>
+        </div>
+
+        <div class="catalog-footnote">
+          <span class="footnote-star">✳</span>
+          <span>Proyectos públicos de GitHub, traídos en tiempo real.</span>
+          <a href="https://github.com/dannymedinacoronel?tab=repositories" target="_blank" rel="noreferrer">
+            Ver todos los repositorios <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="updates-section section-wrap" id="novedades" aria-labelledby="updates-title">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow section-eyebrow">AL DÍA</div>
+            <h2 id="updates-title">Novedades y versiones<span class="heading-period">.</span></h2>
+          </div>
+          <a class="updates-github-link" href="https://github.com/dannymedinacoronel?tab=repositories" target="_blank" rel="noreferrer">
+            Ver actividad en GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="release-list" id="release-list" aria-live="polite">
+          <p class="release-loading">Consultando las últimas versiones en GitHub…</p>
+        </div>
+      </section>
+
+      <section class="developer-section" id="desarrollador" aria-labelledby="developer-title">
+        <div class="developer-inner">
+          <a class="developer-avatar-wrap" id="developer-avatar-link" href="https://github.com/dannymedinacoronel" target="_blank" rel="noreferrer" aria-label="Ver perfil de Danny en GitHub">
+            <img id="developer-avatar" class="developer-avatar" src="" alt="" />
+            <span class="avatar-orbit" aria-hidden="true"></span>
+            <span class="avatar-star" aria-hidden="true">✳</span>
+          </a>
+          <div class="developer-copy">
+            <div class="eyebrow section-eyebrow">QUIÉN ESTÁ DETRÁS</div>
+            <h2 id="developer-title">Hola, soy Danny<span class="heading-period">.</span></h2>
+            <p class="developer-bio" id="developer-bio">
+              Desarrollador y creador de herramientas digitales. Me gusta convertir ideas útiles en experiencias sencillas.
+            </p>
+            <div class="developer-details">
+              <span class="detail-item"><span class="detail-icon">⌖</span><span id="developer-location">Barcelona, España</span></span>
+              <a class="detail-item" id="developer-website" href="https://demkor.es" target="_blank" rel="noreferrer">
+                <span class="detail-icon">↗</span><span id="developer-website-label">demkor.es</span>
+              </a>
+              <span class="detail-item"><span class="detail-icon">⌘</span><span id="developer-followers">GitHub</span></span>
+            </div>
+            <a class="developer-link" id="developer-profile" href="https://github.com/dannymedinacoronel" target="_blank" rel="noreferrer">
+              Conoce más sobre Danny <span aria-hidden="true">↗</span>
+            </a>
+            <div class="developer-socials" id="developer-socials" aria-label="Enlaces de Danny">
+              <a href="https://github.com/dannymedinacoronel" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+              <a href="https://demkor.es" target="_blank" rel="noreferrer">Web personal <span aria-hidden="true">↗</span></a>
+              <a href="https://linkedin.com/in/dannymedinacoronel" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="developer-aside">
+            <span class="aside-mark">“</span>
+            <p>La tecnología es mejor cuando simplemente funciona.</p>
+            <span class="aside-signature">— Danny Medina Coronel</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="brand footer-brand" href="#">
+        <img id="footer-avatar" class="nav-avatar" src="" alt="" />
+        <span>dm<span class="brand-light">/extensions</span></span>
+      </a>
+      <span class="footer-copy">Hecho con intención en Barcelona <span>✳</span></span>
+      <a class="footer-github" href="https://github.com/dannymedinacoronel" target="_blank" rel="noreferrer">
+        GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </footer>
+
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" id="dialog-close" type="button" aria-label="Cerrar ficha">×</button>
+      <div id="dialog-content"></div>
+    </dialog>
+    <dialog class="image-zoom-dialog" id="image-zoom-dialog" aria-labelledby="zoom-caption">
+      <button class="dialog-close" id="zoom-close" type="button" aria-label="Cerrar imagen ampliada">×</button>
+      <figure>
+        <img id="zoomed-image" src="" alt="" />
+        <figcaption id="zoom-caption"></figcaption>
+      </figure>
+    </dialog>
+  </body>
+</html>
