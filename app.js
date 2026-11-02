@@ -752,4 +752,7 @@ elements.clearSearch.addEventListener("click", () => {
 elements.refresh.addEventListener("click", () => loadMarketplace(true));
 elements.retry.addEventListener("click", () => loadMarketplace(true));
 
+void loadProfile().catch((error) => {
+  console.error("No se pudo actualizar la información del perfil de GitHub.", error);
+});
 loadMarketplace();
